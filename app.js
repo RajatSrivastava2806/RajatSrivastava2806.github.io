@@ -9,7 +9,7 @@ const app = express();
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 
-app.listen(3000, () => {
+app.listen(2806, '127.0.0.1', () => {
     console.log("The server started on port 3000 !!!!!!");
 });
 
