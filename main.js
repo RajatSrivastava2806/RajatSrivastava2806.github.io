@@ -164,7 +164,7 @@ class AppComponent {
         this.spinner.start();
         if (FormData.status == "VALID") {
             console.log("yes works submit", FormData);
-            this.http.sendEmail("http://localhost:3000/sendmail", FormData.value).subscribe(data => {
+            this.http.sendEmail("https://rajatsrivastava2806.github.io/:3000/sendmail", FormData.value).subscribe(data => {
                 let res = data;
                 this.spinner.stop();
                 swal.fire({
