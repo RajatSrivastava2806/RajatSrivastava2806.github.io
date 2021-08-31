@@ -164,7 +164,7 @@ class AppComponent {
         this.spinner.start();
         if (FormData.status == "VALID") {
             console.log("yes works submit", FormData);
-            this.http.sendEmail("https://rajatsrivastava2806.github.io/:3000/sendmail", FormData.value).subscribe(data => {
+            this.http.sendEmail("http://127.0.0.1:2806/sendmail", FormData.value).subscribe(data => {
                 let res = data;
                 this.spinner.stop();
                 swal.fire({
@@ -182,7 +182,7 @@ class AppComponent {
                 swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Something went wrong!',
+                    text: 'Some Technical Error, work in progress',
                     showConfirmButton: false,
                     showCancelButton: true,
                     cancelButtonColor: '#d33',
