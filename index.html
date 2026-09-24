@@ -1,49 +1,528 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <title>Portfolio</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
-  <link rel="stylesheet" href="/node_modules/owl.carousel/dist/assets/owl.carousel.min.css">
-  <link rel="stylesheet" href="/node_modules/owl.carousel/dist/assets/owl.theme.default.min.css">
-  <link href="assets/css/aos.css" rel="stylesheet">
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/css/main.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.09e2c710755c8867a460.css">
-  <link rel="stylesheet" href="sweetalert2/dist/sweetalert2.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rajat & Shubhi - Wedding Invitation</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Rozha+One&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --royal-red: #7A0016;
+            --deep-red: #4A000D;
+            --gold: #D4AF37;
+            --bright-gold: #FFD700;
+            --bg-cream: #FFFDF9;
+            --text-dark: #2A080C;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-<link rel="stylesheet" href="styles.css"></head>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0d0003;
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden; /* Locked initially until doors open */
+        }
 
+        /* Mobile Frame Container */
+        .app-frame {
+            width: 100%;
+            max-width: 430px;
+            height: 100vh;
+            max-height: 932px;
+            background: var(--bg-cream);
+            position: relative;
+            overflow-y: hidden;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+        }
+
+        .app-frame.unlocked {
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        /* --- DOOR & GANESHA COVER SECTION --- */
+        .door-container {
+            position: absolute;
+            inset: 0;
+            z-index: 50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1200px;
+            background: #200006;
+            transition: visibility 1.5s ease;
+        }
+
+        /* Ganesha Overlay before opening */
+        .ganesha-card {
+            position: absolute;
+            z-index: 60;
+            text-align: center;
+            color: var(--gold);
+            pointer-events: none;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            width: 80%;
+        }
+
+        .ganesha-img {
+            width: 110px;
+            height: auto;
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+            animation: pulseGanesha 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseGanesha {
+            0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); }
+            100% { transform: scale(1.08); filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.9)); }
+        }
+
+        .shlok {
+            font-family: 'Rozha One', serif;
+            font-size: 0.95rem;
+            margin-top: 12px;
+            letter-spacing: 1px;
+            color: var(--bright-gold);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .click-hint {
+            margin-top: 25px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            background: rgba(122, 0, 22, 0.8);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--gold);
+            display: inline-block;
+            animation: bounce 1.8s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* 3D Royal Doors */
+        .door {
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--royal-red), var(--deep-red));
+            border: 3px solid var(--gold);
+            position: absolute;
+            top: 0;
+            transition: transform 1.4s cubic-bezier(0.77, 0, 0.175, 1);
+            transform-style: preserve-3d;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .door-left {
+            left: 0;
+            transform-origin: left center;
+            border-right: 1.5px solid var(--gold);
+        }
+
+        .door-right {
+            right: 0;
+            transform-origin: right center;
+            border-left: 1.5px solid var(--gold);
+        }
+
+        /* Traditional Pattern on Doors */
+        .door-pattern {
+            width: 80%;
+            height: 70%;
+            border: 2px dashed rgba(212, 175, 55, 0.5);
+            border-radius: 100px 100px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Open Doors State */
+        .door-container.open .door-left {
+            transform: rotateY(-110deg);
+        }
+
+        .door-container.open .door-right {
+            transform: rotateY(110deg);
+        }
+
+        .door-container.open .ganesha-card {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        .door-container.open {
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Floating Petals Layer */
+        .petals-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        .petal {
+            position: absolute;
+            background: linear-gradient(135deg, #FF9933, #D4AF37);
+            border-radius: 12px 0 12px 0;
+            opacity: 0.6;
+            animation: fall 7s infinite linear;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.8; }
+            100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- MAIN SCROLL CONTENT --- */
+        .main-content {
+            padding: 40px 20px 60px;
+            text-align: center;
+            background: radial-gradient(circle, #FFFDF9 0%, #F5EFEB 100%);
+            min-height: 100%;
+        }
+
+        /* Scroll Animation Styles */
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .header-ganesha {
+            width: 60px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.4));
+        }
+
+        .hashtag {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            color: var(--royal-red);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .couples-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.8rem;
+            color: var(--royal-red);
+            line-height: 1.1;
+            margin: 10px 0;
+            text-shadow: 1px 1px 0px rgba(212, 175, 55, 0.3);
+        }
+
+        .couples-title span {
+            display: block;
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 1.4rem;
+            color: var(--gold);
+            margin: 5px 0;
+        }
+
+        .sub-invitation {
+            font-family: 'Rozha One', serif;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        /* Cards */
+        .info-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(122, 0, 22, 0.05);
+            position: relative;
+        }
+
+        .info-card::before {
+            content: '🌸';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-cream);
+            padding: 0 8px;
+            font-size: 0.8rem;
+        }
+
+        .card-heading {
+            font-family: 'Rozha One', serif;
+            font-size: 1.5rem;
+            color: var(--royal-red);
+            margin-bottom: 15px;
+        }
+
+        .event-detail {
+            margin-bottom: 15px;
+        }
+
+        .event-detail .lbl {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .event-detail .val {
+            font-size: 1rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        /* Action Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            gap: 8px;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), var(--bright-gold));
+            color: var(--deep-red);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Countdown Grid */
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .time-box {
+            background: rgba(122, 0, 22, 0.04);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 8px 4px;
+            border-radius: 8px;
+        }
+
+        .time-box .num {
+            font-family: 'Rozha One', serif;
+            font-size: 1.4rem;
+            color: var(--royal-red);
+        }
+
+        .time-box .lbl {
+            font-size: 0.6rem;
+            color: #666;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
 <body>
 
-  <app-root></app-root>
-  <script src="assets/js/core/jquery.3.2.1.min.js"></script>
-  <script src="assets/js/core/popper.min.js"></script>
-  <script src="assets/js/core/bootstrap.min.js"></script>
-  <script src="assets/js/now-ui-kit.js?v=1.1.0"></script>
-  <script src="assets/js/aos.js"></script>
-  <script src="sweetalert2/dist/sweetalert2.all.min.js"></script>
-  <script src="sweetalert2/dist/sweetalert2.min.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script src="polyfills-es5.a83ac866abc867bfd530.js" nomodule="" defer=""></script>
-  <script src="polyfills-es2015.0fe6949bc5ff4b784062.js" type="module"></script>
-  <script src="runtime-es2015.85f895af57b038f1e5b4.js" type="module"></script>
-  <script src="main-es2015.6745e03fa6c08e22db7a.js" type="module"></script>
-  <script src="runtime-es5.85f895af57b038f1e5b4.js" nomodule="" defer=""></script>
-  <script src="main-es5.6745e03fa6c08e22db7a.js" nomodule="" defer=""></script>
-  <!-- <notifier-container></notifier-container> -->
-<script src="runtime.js" defer></script><script src="polyfills.js" defer></script><script src="scripts.js" defer></script><script src="vendor.js" defer></script><script src="main.js" defer></script></body>
+<div class="app-frame" id="appFrame">
 
+    <!-- PETALS CONTAINER -->
+    <div class="petals-layer" id="petals"></div>
+
+    <!-- 1. GANESHA & ROYAL DOOR COVER -->
+    <div class="door-container" id="doorContainer" onclick="openDoor()">
+        <div class="ganesha-card">
+            <!-- Lord Ganesha SVG Icon -->
+            <svg class="ganesha-img" viewBox="0 0 100 100" fill="#D4AF37">
+                <path d="M50 5 C35 5 25 15 25 25 C25 32 29 38 34 42 C30 46 25 55 25 68 C25 80 35 90 50 90 C65 90 75 80 75 68 C75 55 70 46 66 42 C71 38 75 32 75 25 C75 15 65 5 50 5 Z M50 12 C60 12 67 18 67 25 C67 32 60 38 50 38 C40 38 33 32 33 25 C33 18 40 12 50 12 Z M50 45 C60 45 68 53 68 65 C68 74 60 82 50 82 C40 82 32 74 32 65 C32 53 40 45 50 45 Z"/>
+                <circle cx="50" cy="25" r="4" fill="#FFD700"/>
+            </svg>
+            <div class="shlok">॥ श्री गणेशाय नमः ॥</div>
+            <div class="click-hint">Tap Door to Open</div>
+        </div>
+
+        <div class="door door-left">
+            <div class="door-pattern"></div>
+        </div>
+        <div class="door door-right">
+            <div class="door-pattern"></div>
+        </div>
+    </div>
+
+    <!-- 2. SCROLLABLE WEDDING DETAILS -->
+    <div class="main-content" id="mainContent">
+        
+        <div class="reveal">
+            <svg class="header-ganesha" viewBox="0 0 100 100" fill="#7A0016">
+                <path d="M50 5 C35 5 25 15 25 25 C25 32 29 38 34 42 C30 46 25 55 25 68 C25 80 35 90 50 90 C65 90 75 80 75 68 C75 55 70 46 66 42 C71 38 75 32 75 25 C75 15 65 5 50 5 Z"/>
+            </svg>
+            <div class="hashtag">#ShubhRaj</div>
+            <h1 class="couples-title">
+                Rajat
+                <span>weds</span>
+                Shubhi
+            </h1>
+            <p class="sub-invitation">TOGETHER WITH THEIR FAMILIES INVITE YOU TO CELEBRATE THEIR WEDDING</p>
+        </div>
+
+        <!-- Countdown Card -->
+        <div class="info-card reveal">
+            <div class="card-heading">Counting Down</div>
+            <div class="countdown-grid">
+                <div class="time-box"><div class="num" id="d">00</div><div class="lbl">Days</div></div>
+                <div class="time-box"><div class="num" id="h">00</div><div class="lbl">Hours</div></div>
+                <div class="time-box"><div class="num" id="m">00</div><div class="lbl">Mins</div></div>
+                <div class="time-box"><div class="num" id="s">00</div><div class="lbl">Secs</div></div>
+            </div>
+        </div>
+
+        <!-- Event Details Card -->
+        <div class="info-card reveal">
+            <div class="card-heading">Wedding Ceremony</div>
+            
+            <div class="event-detail">
+                <div class="lbl">Date & Time</div>
+                <div class="val">Thursday, December 03, 2026</div>
+                <div class="val" style="font-size:0.9rem; color:#666;">At 07:00 PM Onwards</div>
+            </div>
+
+            <div class="event-detail">
+                <div class="lbl">Venue</div>
+                <div class="val" style="font-weight: 600;">Lord Garden</div>
+                <div class="val" style="font-size:0.85rem; color:#555;">Kidwai Nagar Byepass Road, Kanpur</div>
+            </div>
+
+            <a href="https://maps.app.goo.gl/DpEWGLkTbdeD2c2TA" target="_blank" class="btn btn-gold">
+                📍 Navigate via Google Maps
+            </a>
+        </div>
+
+        <!-- RSVP Card -->
+        <div class="info-card reveal">
+            <div class="card-heading">RSVP</div>
+            <p style="font-size: 0.85rem; color: #555; margin-bottom: 15px;">
+                We look forward to your presence & blessings!
+            </p>
+            <a href="https://wa.me/91740865866?text=Hi%20Rajat%20%26%20Shubhi,%20I%20am%20delighted%20to%20confirm%20my%20presence%20for%20your%20wedding!" target="_blank" class="btn btn-whatsapp">
+                💬 Send RSVP on WhatsApp
+            </a>
+        </div>
+
+        <div class="reveal" style="font-size: 0.8rem; color: var(--royal-red); font-weight: 600; margin-top: 20px;">
+            ✨ #ShubhRaj ✨
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    // 1. Open Door Function
+    function openDoor() {
+        const doorContainer = document.getElementById('doorContainer');
+        const appFrame = document.getElementById('appFrame');
+        
+        doorContainer.classList.add('open');
+        appFrame.classList.add('unlocked');
+
+        // Trigger reveal check once doors open
+        setTimeout(checkScroll, 400);
+    }
+
+    // 2. Scroll Reveal Animations
+    const appFrame = document.getElementById('appFrame');
+    const reveals = document.querySelectorAll('.reveal');
+
+    function checkScroll() {
+        const triggerBottom = appFrame.clientHeight * 0.85;
+
+        reveals.forEach(reveal => {
+            const revealTop = reveal.getBoundingClientRect().top;
+            if (revealTop < triggerBottom) {
+                reveal.classList.add('active');
+            }
+        });
+    }
+
+    appFrame.addEventListener('scroll', checkScroll);
+
+    // 3. Falling Petals Generator
+    const petalsContainer = document.getElementById('petals');
+    for (let i = 0; i < 12; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.style.left = Math.random() * 100 + '%';
+        petal.style.width = (Math.random() * 8 + 8) + 'px';
+        petal.style.height = (Math.random() * 8 + 8) + 'px';
+        petal.style.animationDelay = (Math.random() * 5) + 's';
+        petal.style.animationDuration = (Math.random() * 3 + 5) + 's';
+        petalsContainer.appendChild(petal);
+    }
+
+    // 4. Live Countdown Timer
+    const weddingDate = new Date("Dec 3, 2026 19:00:00").getTime();
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const diff = weddingDate - now;
+
+        if (diff <= 0) {
+            document.getElementById("d").innerText = "00";
+            return;
+        }
+
+        document.getElementById("d").innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+        document.getElementById("h").innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        document.getElementById("m").innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        document.getElementById("s").innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>
+
+</body>
 </html>
