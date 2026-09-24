@@ -6,16 +6,18 @@
     <title>Rajat & Shubhi - Wedding Invitation</title>
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Rozha+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Rozha+One&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --royal-red: #7A0016;
-            --deep-red: #4A000D;
-            --gold: #D4AF37;
+            --royal-burgundy: #4A0404;
+            --deep-maroon: #2D0202;
+            --gold-accent: #D4AF37;
             --bright-gold: #FFD700;
-            --bg-cream: #FFFDF9;
-            --text-dark: #2A080C;
+            --cream-bg: #FCF9F2;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-main: #1A1A1A;
+            --text-sub: #555555;
         }
 
         * {
@@ -27,25 +29,25 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #0d0003;
-            color: var(--text-dark);
+            background-color: #0A0202;
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden; /* Locked initially until doors open */
+            overflow: hidden;
         }
 
-        /* Mobile Frame Container */
+        /* Mobile Container Frame */
         .app-frame {
             width: 100%;
             max-width: 430px;
             height: 100vh;
             max-height: 932px;
-            background: var(--bg-cream);
+            background: var(--cream-bg);
             position: relative;
             overflow-y: hidden;
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.35);
         }
 
         .app-frame.unlocked {
@@ -53,34 +55,33 @@
             scroll-behavior: smooth;
         }
 
-        /* --- DOOR & GANESHA COVER SECTION --- */
+        /* --- ROYAL 3D DOORS COVER --- */
         .door-container {
             position: absolute;
             inset: 0;
-            z-index: 50;
+            z-index: 100;
             display: flex;
             justify-content: center;
             align-items: center;
             perspective: 1200px;
-            background: #200006;
-            transition: visibility 1.5s ease;
+            background: #110003;
+            transition: visibility 1.2s ease;
         }
 
-        /* Ganesha Overlay before opening */
-        .ganesha-card {
+        .ganesha-overlay {
             position: absolute;
-            z-index: 60;
+            z-index: 110;
             text-align: center;
-            color: var(--gold);
+            color: var(--gold-accent);
             pointer-events: none;
+            width: 85%;
             transition: opacity 0.8s ease, transform 0.8s ease;
-            width: 80%;
         }
 
-        .ganesha-img {
+        .ganesha-symbol {
             width: 110px;
             height: auto;
-            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.7));
             animation: pulseGanesha 3s infinite alternate ease-in-out;
         }
 
@@ -89,26 +90,27 @@
             100% { transform: scale(1.08); filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.9)); }
         }
 
-        .shlok {
+        .shlok-text {
             font-family: 'Rozha One', serif;
-            font-size: 0.95rem;
-            margin-top: 12px;
-            letter-spacing: 1px;
+            font-size: 1.05rem;
+            margin-top: 15px;
             color: var(--bright-gold);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+            letter-spacing: 1px;
         }
 
-        .click-hint {
-            margin-top: 25px;
+        .tap-prompt {
+            margin-top: 30px;
             font-size: 0.75rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #fff;
-            background: rgba(122, 0, 22, 0.8);
-            padding: 8px 16px;
-            border-radius: 20px;
-            border: 1px solid var(--gold);
+            color: #FFFFFF;
+            background: rgba(74, 4, 4, 0.85);
+            padding: 10px 22px;
+            border-radius: 25px;
+            border: 1px solid var(--gold-accent);
             display: inline-block;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
             animation: bounce 1.8s infinite;
         }
 
@@ -117,17 +119,17 @@
             50% { transform: translateY(-8px); }
         }
 
-        /* 3D Royal Doors */
+        /* 3D Doors Styling */
         .door {
             width: 50%;
             height: 100%;
-            background: linear-gradient(135deg, var(--royal-red), var(--deep-red));
-            border: 3px solid var(--gold);
+            background: linear-gradient(135deg, var(--royal-burgundy), var(--deep-maroon));
+            border: 2px solid var(--gold-accent);
             position: absolute;
             top: 0;
             transition: transform 1.4s cubic-bezier(0.77, 0, 0.175, 1);
             transform-style: preserve-3d;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+            box-shadow: inset 0 0 60px rgba(0,0,0,0.85);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -136,46 +138,29 @@
         .door-left {
             left: 0;
             transform-origin: left center;
-            border-right: 1.5px solid var(--gold);
+            border-right: 1.5px solid var(--gold-accent);
         }
 
         .door-right {
             right: 0;
             transform-origin: right center;
-            border-left: 1.5px solid var(--gold);
+            border-left: 1.5px solid var(--gold-accent);
         }
 
-        /* Traditional Pattern on Doors */
-        .door-pattern {
+        .door-ornament {
             width: 80%;
-            height: 70%;
-            border: 2px dashed rgba(212, 175, 55, 0.5);
-            border-radius: 100px 100px 0 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 75%;
+            border: 1px dashed rgba(212, 175, 55, 0.4);
+            border-radius: 120px 120px 0 0;
         }
 
-        /* Open Doors State */
-        .door-container.open .door-left {
-            transform: rotateY(-110deg);
-        }
+        /* Open State */
+        .door-container.open .door-left { transform: rotateY(-110deg); }
+        .door-container.open .door-right { transform: rotateY(110deg); }
+        .door-container.open .ganesha-overlay { opacity: 0; transform: scale(0.6); }
+        .door-container.open { visibility: hidden; pointer-events: none; }
 
-        .door-container.open .door-right {
-            transform: rotateY(110deg);
-        }
-
-        .door-container.open .ganesha-card {
-            opacity: 0;
-            transform: scale(0.5);
-        }
-
-        .door-container.open {
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        /* Floating Petals Layer */
+        /* Floating Particles */
         .petals-layer {
             position: fixed;
             inset: 0;
@@ -185,9 +170,9 @@
 
         .petal {
             position: absolute;
-            background: linear-gradient(135deg, #FF9933, #D4AF37);
-            border-radius: 12px 0 12px 0;
-            opacity: 0.6;
+            background: linear-gradient(135deg, #FFD700, #D4AF37);
+            border-radius: 10px 0 10px 0;
+            opacity: 0.5;
             animation: fall 7s infinite linear;
         }
 
@@ -196,18 +181,40 @@
             100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
         }
 
-        /* --- MAIN SCROLL CONTENT --- */
+        /* Floating Audio Toggle Button */
+        .audio-btn {
+            position: fixed;
+            top: 20px;
+            right: calc(50% - 195px);
+            z-index: 80;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--gold-accent);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        @media (max-width: 430px) {
+            .audio-btn { right: 15px; }
+        }
+
+        /* --- MAIN SCROLLABLE INVITATION --- */
         .main-content {
-            padding: 40px 20px 60px;
+            padding: 50px 20px 60px;
             text-align: center;
-            background: radial-gradient(circle, #FFFDF9 0%, #F5EFEB 100%);
+            background: radial-gradient(circle, #FCF9F2 0%, #F3ECE0 100%);
             min-height: 100%;
         }
 
-        /* Scroll Animation Styles */
         .reveal {
             opacity: 0;
-            transform: translateY(35px);
+            transform: translateY(30px);
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
 
@@ -217,94 +224,160 @@
         }
 
         .header-ganesha {
-            width: 60px;
+            width: 55px;
             margin-bottom: 10px;
             filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.4));
         }
 
         .hashtag {
-            font-family: 'Montserrat', sans-serif;
             font-size: 0.8rem;
             letter-spacing: 4px;
-            color: var(--royal-red);
+            color: var(--royal-burgundy);
             font-weight: 600;
             margin-bottom: 15px;
         }
 
-        .couples-title {
+        .couple-names {
             font-family: 'Great Vibes', cursive;
             font-size: 3.8rem;
-            color: var(--royal-red);
+            color: var(--royal-burgundy);
             line-height: 1.1;
             margin: 10px 0;
-            text-shadow: 1px 1px 0px rgba(212, 175, 55, 0.3);
         }
 
-        .couples-title span {
+        .couple-names span {
             display: block;
             font-family: 'Cinzel Decorative', cursive;
-            font-size: 1.4rem;
-            color: var(--gold);
-            margin: 5px 0;
+            font-size: 1.3rem;
+            color: var(--gold-accent);
+            margin: 6px 0;
         }
 
-        .sub-invitation {
+        .invite-sub {
             font-family: 'Rozha One', serif;
             font-size: 0.85rem;
             letter-spacing: 2px;
-            color: #555;
+            color: var(--text-sub);
             margin-bottom: 30px;
         }
 
-        /* Cards */
-        .info-card {
-            background: #FFFFFF;
+        /* Luxury Cards */
+        .royal-card {
+            background: var(--card-bg);
             border: 1px solid rgba(212, 175, 55, 0.4);
-            border-radius: 15px;
+            border-radius: 16px;
             padding: 25px 20px;
             margin-bottom: 25px;
-            box-shadow: 0 10px 25px rgba(122, 0, 22, 0.05);
+            box-shadow: 0 10px 30px rgba(74, 4, 4, 0.05);
             position: relative;
         }
 
-        .info-card::before {
-            content: '🌸';
+        .royal-card::before {
+            content: '✦';
             position: absolute;
             top: -12px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--bg-cream);
+            background: var(--cream-bg);
             padding: 0 8px;
-            font-size: 0.8rem;
+            color: var(--gold-accent);
+            font-size: 0.9rem;
         }
 
-        .card-heading {
+        .card-title {
             font-family: 'Rozha One', serif;
             font-size: 1.5rem;
-            color: var(--royal-red);
+            color: var(--royal-burgundy);
             margin-bottom: 15px;
         }
 
-        .event-detail {
+        .detail-row {
             margin-bottom: 15px;
         }
 
-        .event-detail .lbl {
+        .detail-row .lbl {
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: var(--gold);
+            color: var(--gold-accent);
             font-weight: 600;
         }
 
-        .event-detail .val {
+        .detail-row .val {
             font-size: 1rem;
-            color: var(--text-dark);
+            color: var(--text-main);
             font-weight: 500;
-            margin-top: 2px;
+            margin-top: 3px;
         }
 
-        /* Action Buttons */
+        /* Countdown Grid */
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .timer-unit {
+            background: rgba(74, 4, 4, 0.04);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 10px 4px;
+            border-radius: 8px;
+        }
+
+        .timer-unit .num {
+            font-family: 'Rozha One', serif;
+            font-size: 1.5rem;
+            color: var(--royal-burgundy);
+        }
+
+        .timer-unit .lbl {
+            font-size: 0.6rem;
+            color: var(--text-sub);
+            text-transform: uppercase;
+        }
+
+        /* Interactive RSVP Controls */
+        .rsvp-toggle {
+            display: flex;
+            background: rgba(0,0,0,0.03);
+            padding: 4px;
+            border-radius: 25px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .toggle-btn {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-sub);
+        }
+
+        .toggle-btn.active {
+            background: var(--royal-burgundy);
+            color: #FFFFFF;
+            box-shadow: 0 2px 8px rgba(74, 4, 4, 0.3);
+        }
+
+        .guest-field {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            font-family: inherit;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            outline: none;
+            background: #FFFFFF;
+        }
+
+        /* Buttons */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -318,141 +391,129 @@
             cursor: pointer;
             border: none;
             transition: all 0.3s ease;
-            margin-top: 10px;
+            margin-top: 8px;
             gap: 8px;
         }
 
         .btn-gold {
-            background: linear-gradient(135deg, var(--gold), var(--bright-gold));
-            color: var(--deep-red);
+            background: linear-gradient(135deg, var(--gold-accent), var(--bright-gold));
+            color: var(--deep-maroon);
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
         }
 
         .btn-whatsapp {
             background: #25D366;
-            color: white;
+            color: #FFFFFF;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
         }
 
         .btn:active {
             transform: scale(0.98);
         }
-
-        /* Countdown Grid */
-        .countdown-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            margin-top: 15px;
-        }
-
-        .time-box {
-            background: rgba(122, 0, 22, 0.04);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 8px 4px;
-            border-radius: 8px;
-        }
-
-        .time-box .num {
-            font-family: 'Rozha One', serif;
-            font-size: 1.4rem;
-            color: var(--royal-red);
-        }
-
-        .time-box .lbl {
-            font-size: 0.6rem;
-            color: #666;
-            text-transform: uppercase;
-        }
     </style>
 </head>
 <body>
 
+<audio id="bgAudio" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-113527.mp3"></audio>
+
 <div class="app-frame" id="appFrame">
 
-    <!-- PETALS CONTAINER -->
+    <!-- Floating Gold Petals -->
     <div class="petals-layer" id="petals"></div>
 
-    <!-- 1. GANESHA & ROYAL DOOR COVER -->
-    <div class="door-container" id="doorContainer" onclick="openDoor()">
-        <div class="ganesha-card">
-            <!-- Lord Ganesha SVG Icon -->
-            <svg class="ganesha-img" viewBox="0 0 100 100" fill="#D4AF37">
-                <path d="M50 5 C35 5 25 15 25 25 C25 32 29 38 34 42 C30 46 25 55 25 68 C25 80 35 90 50 90 C65 90 75 80 75 68 C75 55 70 46 66 42 C71 38 75 32 75 25 C75 15 65 5 50 5 Z M50 12 C60 12 67 18 67 25 C67 32 60 38 50 38 C40 38 33 32 33 25 C33 18 40 12 50 12 Z M50 45 C60 45 68 53 68 65 C68 74 60 82 50 82 C40 82 32 74 32 65 C32 53 40 45 50 45 Z"/>
+    <!-- Audio Toggle Button -->
+    <button class="audio-btn" id="audioToggle" aria-label="Toggle Audio">
+        <span id="audioIcon">🎵</span>
+    </button>
+
+    <!-- 1. GANESHA & ROYAL 3D DOOR COVER -->
+    <div class="door-container" id="doorContainer" onclick="openDoors()">
+        <div class="ganesha-overlay">
+            <svg class="ganesha-symbol" viewBox="0 0 100 100" fill="#D4AF37">
+                <path d="M50 5 C35 5 25 15 25 25 C25 32 29 38 34 42 C30 46 25 55 25 68 C25 80 35 90 50 90 C65 90 75 80 75 68 C75 55 70 46 66 42 C71 38 75 32 75 25 C75 15 65 5 50 5 Z M50 12 C60 12 67 18 67 25 C67 32 60 38 50 38 C40 38 33 32 33 25 C33 18 40 12 50 12 Z"/>
                 <circle cx="50" cy="25" r="4" fill="#FFD700"/>
             </svg>
-            <div class="shlok">॥ श्री गणेशाय नमः ॥</div>
-            <div class="click-hint">Tap Door to Open</div>
+            <div class="shlok-text">॥ श्री गणेशाय नमः ॥</div>
+            <div class="tap-prompt">Tap Gate to Reveal Invitation</div>
         </div>
 
-        <div class="door door-left">
-            <div class="door-pattern"></div>
-        </div>
-        <div class="door door-right">
-            <div class="door-pattern"></div>
-        </div>
+        <div class="door door-left"><div class="door-ornament"></div></div>
+        <div class="door door-right"><div class="door-ornament"></div></div>
     </div>
 
-    <!-- 2. SCROLLABLE WEDDING DETAILS -->
+    <!-- 2. SCROLLABLE WEDDING INVITATION CONTENT -->
     <div class="main-content" id="mainContent">
         
         <div class="reveal">
-            <svg class="header-ganesha" viewBox="0 0 100 100" fill="#7A0016">
+            <svg class="header-ganesha" viewBox="0 0 100 100" fill="#4A0404">
                 <path d="M50 5 C35 5 25 15 25 25 C25 32 29 38 34 42 C30 46 25 55 25 68 C25 80 35 90 50 90 C65 90 75 80 75 68 C75 55 70 46 66 42 C71 38 75 32 75 25 C75 15 65 5 50 5 Z"/>
             </svg>
             <div class="hashtag">#ShubhRaj</div>
-            <h1 class="couples-title">
+            <h1 class="couple-names">
                 Rajat
                 <span>weds</span>
                 Shubhi
             </h1>
-            <p class="sub-invitation">TOGETHER WITH THEIR FAMILIES INVITE YOU TO CELEBRATE THEIR WEDDING</p>
+            <p class="invite-sub">WARMLY REQUEST THE HONOUR OF YOUR PRESENCE TO CELEBRATE THEIR WEDDING</p>
         </div>
 
         <!-- Countdown Card -->
-        <div class="info-card reveal">
-            <div class="card-heading">Counting Down</div>
-            <div class="countdown-grid">
-                <div class="time-box"><div class="num" id="d">00</div><div class="lbl">Days</div></div>
-                <div class="time-box"><div class="num" id="h">00</div><div class="lbl">Hours</div></div>
-                <div class="time-box"><div class="num" id="m">00</div><div class="lbl">Mins</div></div>
-                <div class="time-box"><div class="num" id="s">00</div><div class="lbl">Secs</div></div>
+        <div class="royal-card reveal">
+            <div class="card-title">Counting Down To Forever</div>
+            <div class="timer-grid">
+                <div class="timer-unit"><div class="num" id="d">00</div><div class="lbl">Days</div></div>
+                <div class="timer-unit"><div class="num" id="h">00</div><div class="lbl">Hours</div></div>
+                <div class="timer-unit"><div class="num" id="m">00</div><div class="lbl">Mins</div></div>
+                <div class="timer-unit"><div class="num" id="s">00</div><div class="lbl">Secs</div></div>
             </div>
         </div>
 
         <!-- Event Details Card -->
-        <div class="info-card reveal">
-            <div class="card-heading">Wedding Ceremony</div>
+        <div class="royal-card reveal">
+            <div class="card-title">The Wedding Ceremony</div>
             
-            <div class="event-detail">
-                <div class="lbl">Date & Time</div>
+            <div class="detail-row">
+                <div class="lbl">Date</div>
                 <div class="val">Thursday, December 03, 2026</div>
-                <div class="val" style="font-size:0.9rem; color:#666;">At 07:00 PM Onwards</div>
             </div>
 
-            <div class="event-detail">
+            <div class="detail-row">
+                <div class="lbl">Time</div>
+                <div class="val">07:00 PM Onwards</div>
+            </div>
+
+            <div class="detail-row">
                 <div class="lbl">Venue</div>
                 <div class="val" style="font-weight: 600;">Lord Garden</div>
-                <div class="val" style="font-size:0.85rem; color:#555;">Kidwai Nagar Byepass Road, Kanpur</div>
+                <div class="val" style="font-size:0.85rem; color:var(--text-sub);">Kidwai Nagar Byepass Road, Kanpur</div>
             </div>
 
             <a href="https://maps.app.goo.gl/DpEWGLkTbdeD2c2TA" target="_blank" class="btn btn-gold">
-                📍 Navigate via Google Maps
+                📍 Open Google Maps Directions
             </a>
+            <button class="btn" style="background: transparent; border: 1px solid var(--gold-accent); color: var(--royal-burgundy);" onclick="addToCalendar()">
+                📅 Add Event to Calendar
+            </button>
         </div>
 
-        <!-- RSVP Card -->
-        <div class="info-card reveal">
-            <div class="card-heading">RSVP</div>
-            <p style="font-size: 0.85rem; color: #555; margin-bottom: 15px;">
-                We look forward to your presence & blessings!
-            </p>
-            <a href="https://wa.me/91740865866?text=Hi%20Rajat%20%26%20Shubhi,%20I%20am%20delighted%20to%20confirm%20my%20presence%20for%20your%20wedding!" target="_blank" class="btn btn-whatsapp">
-                💬 Send RSVP on WhatsApp
-            </a>
+        <!-- Interactive RSVP Card -->
+        <div class="royal-card reveal">
+            <div class="card-title">R S V P</div>
+            
+            <div class="rsvp-toggle">
+                <div class="toggle-btn active" id="btnAccept" onclick="toggleRSVP(true)">Joyfully Accept</div>
+                <div class="toggle-btn" id="btnDecline" onclick="toggleRSVP(false)">Regretfully Decline</div>
+            </div>
+
+            <input type="text" id="guestName" class="guest-field" placeholder="Your Name" />
+            <input type="number" id="guestCount" class="guest-field" placeholder="Number of Guests attending" value="1" min="1" max="10" />
+
+            <button class="btn btn-whatsapp" onclick="sendRSVP()">
+                💬 Confirm via WhatsApp
+            </button>
         </div>
 
-        <div class="reveal" style="font-size: 0.8rem; color: var(--royal-red); font-weight: 600; margin-top: 20px;">
+        <div class="reveal" style="font-size: 0.8rem; color: var(--royal-burgundy); font-weight: 600; margin-top: 20px;">
             ✨ #ShubhRaj ✨
         </div>
 
@@ -461,25 +522,53 @@
 </div>
 
 <script>
-    // 1. Open Door Function
-    function openDoor() {
-        const doorContainer = document.getElementById('doorContainer');
-        const appFrame = document.getElementById('appFrame');
-        
-        doorContainer.classList.add('open');
-        appFrame.classList.add('unlocked');
+    // 1. Interactive Door Reveal Logic
+    let doorsOpened = false;
 
-        // Trigger reveal check once doors open
+    function openDoors() {
+        if (doorsOpened) return;
+        doorsOpened = true;
+
+        document.getElementById('doorContainer').classList.add('open');
+        document.getElementById('appFrame').classList.add('unlocked');
+
+        // Play audio on opening door if allowed
+        playAudio();
+
         setTimeout(checkScroll, 400);
     }
 
-    // 2. Scroll Reveal Animations
+    // 2. Audio Control
+    const audio = document.getElementById('bgAudio');
+    const audioToggle = document.getElementById('audioToggle');
+    let isPlaying = false;
+
+    function playAudio() {
+        audio.play().then(() => {
+            isPlaying = true;
+            document.getElementById('audioIcon').innerText = '🎶';
+        }).catch(() => {
+            isPlaying = false;
+        });
+    }
+
+    audioToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (isPlaying) {
+            audio.pause();
+            document.getElementById('audioIcon').innerText = '🎵';
+        } else {
+            playAudio();
+        }
+        isPlaying = !isPlaying;
+    });
+
+    // 3. Scroll Reveal Effect
     const appFrame = document.getElementById('appFrame');
     const reveals = document.querySelectorAll('.reveal');
 
     function checkScroll() {
-        const triggerBottom = appFrame.clientHeight * 0.85;
-
+        const triggerBottom = appFrame.clientHeight * 0.88;
         reveals.forEach(reveal => {
             const revealTop = reveal.getBoundingClientRect().top;
             if (revealTop < triggerBottom) {
@@ -490,9 +579,9 @@
 
     appFrame.addEventListener('scroll', checkScroll);
 
-    // 3. Falling Petals Generator
+    // 4. Floating Petals Animation
     const petalsContainer = document.getElementById('petals');
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 14; i++) {
         const petal = document.createElement('div');
         petal.className = 'petal';
         petal.style.left = Math.random() * 100 + '%';
@@ -503,7 +592,7 @@
         petalsContainer.appendChild(petal);
     }
 
-    // 4. Live Countdown Timer
+    // 5. Countdown Timer
     const weddingDate = new Date("Dec 3, 2026 19:00:00").getTime();
 
     function updateCountdown() {
@@ -522,6 +611,42 @@
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
+
+    // 6. Interactive RSVP & Calendar Actions
+    let isAttending = true;
+
+    function toggleRSVP(status) {
+        isAttending = status;
+        document.getElementById('btnAccept').classList.toggle('active', status);
+        document.getElementById('btnDecline').classList.toggle('active', !status);
+        document.getElementById('guestCount').style.display = status ? 'block' : 'none';
+    }
+
+    function sendRSVP() {
+        const name = document.getElementById('guestName').value.trim();
+        const count = document.getElementById('guestCount').value;
+
+        if (!name) {
+            alert("Please enter your name!");
+            return;
+        }
+
+        let msg = isAttending
+            ? `Hi Rajat & Shubhi, I'm ${name}! I am delighted to accept your wedding invitation for Dec 3, 2026 with ${count} guest(s). #ShubhRaj`
+            : `Hi Rajat & Shubhi, I'm ${name}. Thank you for the invitation, but I am unable to attend. Sending my warm wishes! #ShubhRaj`;
+
+        window.open(`https://wa.me/91740865866?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function addToCalendar() {
+        const title = "Rajat & Shubhi's Wedding Ceremony (#ShubhRaj)";
+        const details = "Joining Rajat & Shubhi at Lord Garden, Kanpur for their wedding ceremony.";
+        const location = "Lord Garden, Kidwai Nagar Byepass Road, Kanpur";
+        
+        const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=20261203T133000Z/20261203T183000Z&details=${encodeURIComponent(details)}&location=${encodeURIComponent(location)}`;
+        
+        window.open(calendarUrl, '_blank');
+    }
 </script>
 
 </body>
